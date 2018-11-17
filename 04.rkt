@@ -45,26 +45,49 @@
 (define STRAIGHT-YELLOW     (above (mk-circle 'black) (mk-circle 'yellow) (mk-circle 'black)))
 (define STRAIGHT-GREEN      (above (mk-circle 'black) (mk-circle 'black)  (mk-circle 'green)))
 
+; Number of seconds the traffic light remains in each state.
+(define TIME-IN-STATE0 1)
+(define TIME-IN-STATE1 15)
+(define TIME-IN-STATE2 5)
+(define TIME-IN-STATE3 1)
+(define TIME-IN-STATE4 40)
+(define TIME-IN-STATE5 5)
+(define TIME-IN-STATE6 60)
+
+; Total number of seconds from 0 to the end of each state.
+(define END-STATE0 TIME-IN-STATE0)
+(define END-STATE1 (+ END-STATE0 TIME-IN-STATE1))
+(define END-STATE2 (+ END-STATE1 TIME-IN-STATE2))
+(define END-STATE3 (+ END-STATE2 TIME-IN-STATE3))
+(define END-STATE4 (+ END-STATE3 TIME-IN-STATE4))
+(define END-STATE5 (+ END-STATE4 TIME-IN-STATE5))
+(define END-STATE6 (+ END-STATE5 TIME-IN-STATE6))
+(define TOTAL-PERIOD END-STATE6)
+
 ; Image Image -> Image
 ; Compose the full traffic light image.
 (define (left+straight left straight) (overlay (beside left straight) BG))
 
+; Number Number Number -> Boolean
+; Return #true if a <= x < b and #false otherwise.
+(define (between x a b) (and (>= x a) (< x b)))
+
 ; Time -> Image
 ; Given a Time return one of the possible traffic light images.
 (define (traffic-light-state time)
-  (cond [(and (>= time 0)  (< time 1))   (left+straight LEFT-RED-YELLOW STRAIGHT-RED)]
-        [(and (>= time 1)  (< time 16))  (left+straight LEFT-GREEN      STRAIGHT-RED)]
-        [(and (>= time 16) (< time 21))  (left+straight LEFT-YELLOW     STRAIGHT-RED)]
-        [(and (>= time 21) (< time 22))  (left+straight LEFT-RED        STRAIGHT-RED-YELLOW)]
-        [(and (>= time 22) (< time 62))  (left+straight LEFT-RED        STRAIGHT-GREEN)]
-        [(and (>= time 62) (< time 67))  (left+straight LEFT-RED        STRAIGHT-YELLOW)]
-        [(and (>= time 67) (< time 127)) (left+straight LEFT-RED        STRAIGHT-RED)]))
+  (cond [(between time 0          END-STATE0) (left+straight LEFT-RED-YELLOW STRAIGHT-RED)]
+        [(between time END-STATE0 END-STATE1) (left+straight LEFT-GREEN      STRAIGHT-RED)]
+        [(between time END-STATE1 END-STATE2) (left+straight LEFT-YELLOW     STRAIGHT-RED)]
+        [(between time END-STATE2 END-STATE3) (left+straight LEFT-RED        STRAIGHT-RED-YELLOW)]
+        [(between time END-STATE3 END-STATE4) (left+straight LEFT-RED        STRAIGHT-GREEN)]
+        [(between time END-STATE4 END-STATE5) (left+straight LEFT-RED        STRAIGHT-YELLOW)]
+        [(between time END-STATE5 END-STATE6) (left+straight LEFT-RED        STRAIGHT-RED)]))
 
 ; Tick -> Image
 ; Given a tick return one of the traffic light images.
 ; This function can be passed to (animate ...).
 (define (traffic-light tick)
-  (traffic-light-state (/ (modulo tick (* 127 TICKS-PER-SECOND)) TICKS-PER-SECOND)))
+  (traffic-light-state (/ (modulo tick (* TOTAL-PERIOD TICKS-PER-SECOND)) TICKS-PER-SECOND)))
 
 (check-expect (traffic-light 20) (left+straight LEFT-RED-YELLOW STRAIGHT-RED))
 (check-expect (traffic-light 50) (left+straight LEFT-GREEN STRAIGHT-RED))
