@@ -2,5 +2,5 @@
 ;; about the language level of this file in a form that our tools can easily process.
 #reader(lib "htdp-beginner-reader.ss" "lang")((modname |01|) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
 
-; A Volume is a Number[0,+inf.0)
+; A Volume is a PosNumber
 ; Interpretation: a volume in liters
