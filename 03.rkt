@@ -8,6 +8,6 @@
 (define (taller name1 height1 name2 height2)
   (if (>= height1 height2) name1 name2))
 
-(check-expect (taller "Marco" 160 "Nate" 210) "Nate")
-(check-expect (taller "Marco" 200 "Nate" 190) "Marco")
-(check-expect (taller "Tereh" 200 "Nystrom" 200) "Tereh")
+(check-expect (taller "Alice" 160 "Bob" 210) "Bob")
+(check-expect (taller "Alice" 200 "Bob" 190) "Alice")
+(check-expect (taller "Alice" 200 "Bob" 200) "Alice")
