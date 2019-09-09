@@ -71,7 +71,7 @@ before_script:
 
 # Here supply steps such as raco make, raco test, etc.
 script:
-  - raco test -x .
+  - raco test -x *.rkt
 
 
 # OR: If your repo is a Racket package with an info.rkt that includes
