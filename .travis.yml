@@ -6,6 +6,7 @@ env:
     # Racket will be installed. A good idea is to use ~/racket because
     # that doesn't require sudo to install.
     - RACKET_DIR=~/racket
+    - DISPLAY=:0
   matrix:
     # Supply at least one RACKET_VERSION environment variable. This is
     # used by the install-racket.sh script (run at before_install,
