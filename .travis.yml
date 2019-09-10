@@ -4,7 +4,8 @@ services:
   - docker
 
 before_install:
-  - docker build -t friendlyhello .
+  - docker pull igormoreno/usi-pf1:friendlyhello
+  # - docker build -t friendlyhello .
   - docker container run -it --rm --mount type=bind,source="$(pwd)",target=/app --workdir=/app friendlyhello bash ./script.sh
 
 script:
