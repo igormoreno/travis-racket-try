@@ -4,7 +4,7 @@ services:
   - docker
 
 before_install:
-  - git clone https://github.com/igormoreno/travis-racket-try.git
+  - git clone https://github.com/igormoreno/usi-pf1-ta.git
   - docker pull igormoreno/usi-pf1
   # - docker build -t friendlyhello .
   - docker container run -it --rm --mount type=bind,source="$(pwd)",target=/app --workdir=/app igormoreno/usi-pf1 ../utils/docker-run-all.sh
