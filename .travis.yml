@@ -6,5 +6,11 @@ services:
 before_install:
   - docker pull igormoreno/usi-pf1
 
-script:
-  - docker container run -it --rm --mount type=bind,source="$(pwd)",target=/app --workdir=/app -e "GITHUB_KEY=$KEY" igormoreno/usi-pf1 ../utils/docker-run-all.sh
+jobs:
+  include:
+    - stage: Students tests
+      script:
+        - docker container run -it --rm --mount type=bind,source="$(pwd)",target=/app --workdir=/app -e "GITHUB_KEY=$KEY" -e "LAB=lab-3" igormoreno/usi-pf1 ../utils/docker-run-student-tests.sh
+    - stage: Feedback
+      script:
+        - docker container run -it --rm --mount type=bind,source="$(pwd)",target=/app --workdir=/app -e "GITHUB_KEY=$KEY" -e "LAB=lab-3" igormoreno/usi-pf1 ../utils/docker-run-feedback.sh
