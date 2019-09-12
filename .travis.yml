@@ -11,6 +11,6 @@ jobs:
     - stage: Students tests
       script:
         - docker container run -it --rm --mount type=bind,source="$(pwd)",target=/app --workdir=/app -e "GITHUB_KEY=$KEY" -e "LAB=lab-3" igormoreno/usi-pf1 ../utils/docker-run-student-tests.sh
-    - stage: Feedback
+    - stage: Extra tests
       script:
-        - docker container run -it --rm --mount type=bind,source="$(pwd)",target=/app --workdir=/app -e "GITHUB_KEY=$KEY" -e "LAB=lab-3" igormoreno/usi-pf1 ../utils/docker-run-feedback.sh
+        - docker container run -it --rm --mount type=bind,source="$(pwd)",target=/app --workdir=/app -e "GITHUB_KEY=$KEY" -e "LAB=lab-3" igormoreno/usi-pf1 ../utils/docker-run-extra-tests.sh
