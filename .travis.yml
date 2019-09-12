@@ -10,4 +10,4 @@ before_install:
   - docker container run -it --rm --mount type=bind,source="$(pwd)",target=/app --workdir=/app igormoreno/usi-pf1 ../utils/docker-run-all.sh
 
 script:
-  - echo end
+  - echo end2
