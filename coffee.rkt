@@ -13,6 +13,7 @@
 ; Interpretation: coins accepted by the machine.
 
 ; Template function on a Coin.
+; Coin -> Any
 (define (function-on-coins c)
   (cond [(symbol=? c '10-cents) ...]
         [(symbol=? c '20-cents) ...]
@@ -39,6 +40,7 @@
 ; keep track of how much money has been inserted so far.
 
 ; Template function on a MachineState.
+; MachineState -> Any
 (define (function-on-states state)
   (cond [(symbol=? state 'Idle) ...]
         [(symbol=? state '10-cents-inserted) ...]
