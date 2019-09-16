@@ -9,9 +9,7 @@ jobs:
       script:
         - docker pull igormoreno/usi-pf1
         - docker container run -it --rm --mount type=bind,source="$(pwd)",target=/app --workdir=/app -e "GITHUB_KEY=$KEY" -e "LAB=lab-3" igormoreno/usi-pf1 ../utils/docker-run-student-tests.sh
-    - stage: Extra tests
-      script:
-        - docker container run -it --rm --mount type=bind,source="$(pwd)",target=/app --workdir=/app -e "GITHUB_KEY=$KEY" -e "LAB=lab-3" igormoreno/usi-pf1 ../utils/docker-run-extra-tests.sh
+    - script: docker container run -it --rm --mount type=bind,source="$(pwd)",target=/app --workdir=/app -e "GITHUB_KEY=$KEY" -e "LAB=lab-3" igormoreno/usi-pf1 ../utils/docker-run-extra-tests.sh
     - stage: Code conventions
       script:
         - docker container run -it --rm --mount type=bind,source="$(pwd)",target=/app --workdir=/app -e "GITHUB_KEY=$KEY" -e "LAB=lab-3" igormoreno/usi-pf1 ../utils/docker-run-code-convention-checks.sh
