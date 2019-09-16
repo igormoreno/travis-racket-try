@@ -5,16 +5,14 @@ services:
 
 jobs:
   include:
-    - stage: Students tests
-      name: abc
+    - stage: Build
+      name: student tests
       script:
         - docker pull igormoreno/usi-pf1
         - docker container run -it --rm --mount type=bind,source="$(pwd)",target=/app --workdir=/app -e "GITHUB_KEY=$KEY" -e "LAB=lab-3" igormoreno/usi-pf1 ../utils/docker-run-student-tests.sh
     - script: docker container run -it --rm --mount type=bind,source="$(pwd)",target=/app --workdir=/app -e "GITHUB_KEY=$KEY" -e "LAB=lab-3" igormoreno/usi-pf1 ../utils/docker-run-extra-tests.sh
-      name: xyz
-    - stage: Code conventions
-      script:
-        - docker container run -it --rm --mount type=bind,source="$(pwd)",target=/app --workdir=/app -e "GITHUB_KEY=$KEY" -e "LAB=lab-3" igormoreno/usi-pf1 ../utils/docker-run-code-convention-checks.sh
-    - stage: Code coverage
-      script:
-        - docker container run -it --rm --mount type=bind,source="$(pwd)",target=/app --workdir=/app -e "GITHUB_KEY=$KEY" -e "LAB=lab-3" igormoreno/usi-pf1 ../utils/docker-run-code-coverage.sh 03.rkt 04.rkt coffee.rkt
+      name: extra tests
+    - script: docker container run -it --rm --mount type=bind,source="$(pwd)",target=/app --workdir=/app -e "GITHUB_KEY=$KEY" -e "LAB=lab-3" igormoreno/usi-pf1 ../utils/docker-run-code-convention-checks.sh
+      name: code conventions
+    - script: docker container run -it --rm --mount type=bind,source="$(pwd)",target=/app --workdir=/app -e "GITHUB_KEY=$KEY" -e "LAB=lab-3" igormoreno/usi-pf1 ../utils/docker-run-code-coverage.sh 03.rkt 04.rkt coffee.rkt
+      name: code coverage
