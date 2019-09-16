@@ -19,4 +19,4 @@ jobs:
         - docker container run -it --rm --mount type=bind,source="$(pwd)",target=/app --workdir=/app -e "GITHUB_KEY=$KEY" -e "LAB=lab-3" igormoreno/usi-pf1 ../utils/docker-run-code-convention-checks.sh
     - stage: Code coverage
       script:
-        - docker container run -it --rm --mount type=bind,source="$(pwd)",target=/app --workdir=/app -e "GITHUB_KEY=$KEY" -e "LAB=lab-3" igormoreno/usi-pf1 ../utils/run-coverage.sh 03.rkt 04.rkt coffee.rkt
+        - docker container run -it --rm --mount type=bind,source="$(pwd)",target=/app --workdir=/app -e "GITHUB_KEY=$KEY" -e "LAB=lab-3" igormoreno/usi-pf1 ../utils/docker-run-code-coverage.sh 03.rkt 04.rkt coffee.rkt
